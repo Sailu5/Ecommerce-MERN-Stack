@@ -1,5 +1,6 @@
 import Product from '../models/productModel.js';
 import { deleteFile } from '../utils/file.js';
+import product from '../data/products.js';
 
 // @desc     Fetch All Products
 // @method   GET
@@ -14,11 +15,12 @@ const getProducts = async (req, res, next) => {
     const skip = Number(req.query.skip) || 0;
     const search = req.query.search || '';
 
-    const products = await Product.find({
-      name: { $regex: search, $options: 'i' }
-    })
-      .limit(limit > maxLimit ? maxLimit : limit)
-      .skip(skip > maxSkip ? maxSkip : skip < 0 ? 0 : skip);
+    // const products = await Product.find({
+    //   name: { $regex: search, $options: 'i' }
+    // })
+    //   .limit(limit > maxLimit ? maxLimit : limit)
+    //   .skip(skip > maxSkip ? maxSkip : skip < 0 ? 0 : skip);
+    const products = product;
 
     if (!products || products.length === 0) {
       res.statusCode = 404;
